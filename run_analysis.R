@@ -19,4 +19,5 @@ names(traindata)=c("dataset", "subject", "activity", heading)
 data<-rbind(testdata, traindata)
 meanstd<-c("dataset", "subject", "activity", heading[grepl("mean()", features$V2, fixed=TRUE)], heading[grepl("std()", features$V2, fixed=TRUE)])
 datameanstd<-data[,meanstd]
-datasummaryBy(. ~ subject + activity, data=datameanstd, FUN=mean)
+library(doBy)
+write.table(summaryBy(. ~ subject + activity, data=datameanstd, FUN=mean), file="tidydata.txt")
